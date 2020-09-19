@@ -1,0 +1,81 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.0.0
+  slack: circleci/slack@3.4.2
+
+jobs:
+  periodic-task:
+    parameters:
+      period:
+        type: enum
+        enum: ['oneshot', 'daily', 'weekly', 'monthly']
+        default: oneshot
+
+    executor: node/default
+
+    steps:
+      - checkout
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Run command
+          command: |
+            case "<< parameters.period >>" in
+              daily)
+                yarn daily
+                ;;
+              weekly)
+                yarn weekly
+                ;;
+              monthly)
+                yarn monthly
+                ;;
+              *)
+                ;;
+            esac
+      - slack/status:
+          failure_message: ':red_circle: A << parameters.period >> job has failed!'
+          success_message: ':tada: << parameters.period >> job has succeeded!'
+
+workflows:
+  oneshot:
+    jobs:
+      - periodic-task:
+          period: oneshot
+
+  daily:
+    jobs:
+      - periodic-task:
+          period: daily
+    triggers:
+      - schedule:
+          cron: '0 0 * * *'
+          filters:
+            branches:
+              only:
+                - master
+
+  weekly:
+    jobs:
+      - periodic-task:
+          period: weekly
+    triggers:
+      - schedule:
+          cron: '0 0 * * 0'
+          filters:
+            branches:
+              only:
+                - master
+
+  monthly:
+    jobs:
+      - periodic-task:
+          period: monthly
+    triggers:
+      - schedule:
+          cron: '0 0 1 * *'
+          filters:
+            branches:
+              only:
+                - master

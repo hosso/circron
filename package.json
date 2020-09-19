@@ -1,0 +1,10 @@
+{
+  "name": "circron",
+  "version": "0.1.0",
+  "description": "Run periodic tasks with CircleCI",
+  "scripts": {
+    "daily": "echo \"hello!\"",
+    "weekly": "echo \"ahoy!\"",
+    "monthly": "echo \"nihao!\""
+  }
+}
