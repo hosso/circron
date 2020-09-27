@@ -2,6 +2,9 @@
 
 Run periodic tasks with CircleCI
 
+![CircleCI](https://user-images.githubusercontent.com/19500280/94357057-699c9880-00d0-11eb-9d33-f0c0472176e4.png)
+![Slack](https://user-images.githubusercontent.com/19500280/94357058-6acdc580-00d0-11eb-832e-e6c633c332c2.png)
+
 ## License
 
 [MIT](LICENSE)
