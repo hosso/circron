@@ -9,7 +9,7 @@ jobs:
     parameters:
       period:
         type: enum
-        enum: ['oneshot', 'daily', 'weekly', 'monthly']
+        enum: ["oneshot", "daily", "weekly", "monthly"]
         default: oneshot
 
     executor: node/default
@@ -35,8 +35,8 @@ jobs:
                 ;;
             esac
       - slack/status:
-          failure_message: ':red_circle: A << parameters.period >> job has failed!'
-          success_message: ':tada: << parameters.period >> job has succeeded!'
+          failure_message: ":red_circle: A << parameters.period >> job has failed!"
+          success_message: ":tada: << parameters.period >> job has succeeded!"
 
 workflows:
   oneshot:
@@ -50,7 +50,7 @@ workflows:
           period: daily
     triggers:
       - schedule:
-          cron: '0 0 * * *'
+          cron: "0 0 * * *"
           filters:
             branches:
               only:
@@ -62,7 +62,7 @@ workflows:
           period: weekly
     triggers:
       - schedule:
-          cron: '0 0 * * 0'
+          cron: "0 0 * * 0"
           filters:
             branches:
               only:
@@ -74,7 +74,7 @@ workflows:
           period: monthly
     triggers:
       - schedule:
-          cron: '0 0 1 * *'
+          cron: "0 0 1 * *"
           filters:
             branches:
               only:
